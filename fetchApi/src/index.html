@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <input type="file"> -->
+  <a href="">下载</a>
+  <script>
+    (() => {
+      // const a = document.querySelector('a');
+      // const blob = new Blob([123])
+      // const url = URL.createObjectURL(blob)
+      // console.log(url);
+
+      // a.href = url
+      // a.download = 'test.txt'
+      // a.click();
+
+      // const f = fetch('http://localhost:8080/test', {
+      //   cache: 'no-store',
+      //   // headers: new Headers({
+      //   //   // 'Cache-Control': 'no-store;'
+      //   // })
+      // });
+
+      // f.then(res => {
+      //   console.dir(res);
+      // })
+      // const xhr = new XMLHttpRequest();
+      // xhr.open('GET', 'http://localhost:8080/test');
+      // xhr.setRequestHeader('Cache-Control', 'no-cache');
+      // xhr.setRequestHeader('Test', 'test');
+      // xhr.onreadystatechange = () => {
+
+      // }
+      // xhr.send();
+      // const ipt = document.querySelector('input');
+
+      // ipt.onchange = () => {
+      //   const fr = new FileReader()
+      //   fr.readAsBinaryString(ipt.files[0])
+      //   fr.onload = ({ target: { result } }) => {
+      //     let fd = new FormData();
+      //     fd.append('file', result)
+      //     const f = fetch('http://localhost:8080/update', {
+      //       method: 'POST',
+      //       body: fd,
+      //     })
+      //   }
+      // }
+
+      const headers = new Headers();
+      // headers.append('Test', 'test')
+      // headers.append('Cache-Control', 'no-cache')
+
+      // let myFormData = new FormData();
+      // myFormData.append('foo', 'bar');
+      const r1 = new Request('http://localhost:8080/test', {
+        method: 'POST',
+        // text 方法拿到得到的 UTF-8 格式字符串
+        // body: 'foo'
+
+        // json 方法将缓冲区转存得到的 JSON
+        // body: JSON.stringify('foo')
+
+        // formData()
+        // body: myFormData 
+
+      })
+
+      /* // text 方法拿到得到的 UTF-8 格式字符串
+      r1.text().then(console.log) */
+
+      /* // json 方法将缓冲区转存得到的 JSON
+      r1.json().then(console.log) */
+
+      /* // formData
+      r1.formData().then(res => console.log(...res)) */
+
+
+      const f = fetch(r1, {
+        headers,
+      });
+
+      f.then(res => {
+
+        // text 方法拿到得到的 UTF-8 格式字符串
+        // res.text().then(console.log)
+
+        // Body.json() 将缓冲区转存得到的 JSON
+        // res.json().then(console.log)
+
+        // arraybuffer
+        /* res.arrayBuffer()
+        .then(val => console.log(new Uint8Array(val)));*/
+
+        /* // blob
+        res.blob()
+        .then(console.log); */
+
+        // console.log(res);
+        // debugger;
+        // res.text();
+        // console.log(res);
+        // debugger;
+        // res.text();
+
+        // read
+        // let reader = body
+        // let reader = res.body.getReader();
+        // // console.log(reader);
+        // reader.read().then(val => console.log(val))
+
+        // res.arrayBuffer().then(console.log)
+
+        // function processNextChunk({ value, done }) {
+        //   if (done) {
+        //     return;
+        //   }
+        //   console.log(value);
+        //   return reader.read()
+        //     .then(processNextChunk);
+        // }
+
+        // return reader.read()
+        //   .then(processNextChunk);
+      })
+
+    })();
+  </script>
+</body>
+
+</html>
