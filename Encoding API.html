@@ -1,0 +1,16 @@
+<script>
+    // Encoding API 主要用于实现字符串与定型数组之间的转换。规范新增了 4 个用于执行转换的全局类：TextEncoder、TextEncoderStream、TextDecoder 和 TextDecoderStream。
+
+    // Encoding API 提供了两种将字符串转换为定型数组二进制格式的方法：批量编码和流编码。把字符串转换为定型数组时，编码器始终使用 UTF-8。
+
+    // 编码
+    const textEncoder = new TextEncoder();
+    const decodedText = 'foo';
+    const encodedText = textEncoder.encode(decodedText);
+
+    // 解码
+    console.log(encodedText);
+    const textDecoder = new TextDecoder();
+    console.log(textDecoder.decode(Uint8Array.of(...encodedText))); // foo
+
+</script>

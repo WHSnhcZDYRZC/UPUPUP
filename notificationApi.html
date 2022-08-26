@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Notification.requestPermission()
+            .then((permission) => {
+                const n = new Notification('I will close in 1000ms');
+
+                // 生命周期
+                n.onshow = () => console.log('Notification was shown!'); 
+                n.onclick = () => console.log('Notification was clicked!'); 
+                n.onclose = () => console.log('Notification was closed!'); 
+                n.onerror = () => console.log('Notification experienced an error!');
+                                
+                setTimeout(() => n.close(), 1000);
+
+                console.log('User responded to permission request:', permission);
+            });
+
+
+
+            // function fn() {
+            //     console.log('fn');
+            // }
+            
+            // setTimeout(fn, 1000)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <base href="https://www.w3schools.com/" target="_blank"> -->
+</head>
+
+<body>
+    <!-- 1. 向 HTML 元素添加简单的工具提示不需要 CSS 或 JavaScript。 使用 title 属性，您可以轻松添加工具提示以向用户提供额外信息 -->
+
+    <p>1.
+        <abbr title="World Health Organization">浮动在我上面试试</abbr>
+    </p>
+
+    <!-- 2. 当您希望用户下载链接而不是导航到文件时，下载属性非常有用。 此外，您还可以设置用户将下载的文件的文件名 -->
+    2. <a href="link/to/your/file" download="filename">Download link</a>
+
+    <!-- 3. 没有人喜欢HTML在不该打断的地方打断文字。 使用<wbr>，您可以轻松地找到可以打断单词的点(机会)。 当单词太长，浏览器很有可能会在不正确的地方打断它时，这很有用。 -->
+    <p>3. 打断1111111111111111111111111111111111111111111111111111111111111111111111111111111<wbr>到我这里被打断<wbr>11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+    </p>
+
+    <!-- 4. 使用DIR =“AUTO”，浏览器将根据内容的语言更改文本对齐。当您处理不遵循左边的语言时，这非常有用。使用此属性的潜在地点是社交媒体聊天应用程序。 -->
+    <p dir="auto">4. This text is following dir=auto</p>
+
+    <!-- 5. 通过使用细节和摘要语义元素，您可以创建一个非常基本但很容易的手风琴。将accordion元素与details元素打包，而标题则使用summary元素。最后，使用p段落元素来编写手风琴的主要内容 -->
+    5. <details>
+        <summary>Epcot Center</summary>
+        <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions,
+            award-winning fireworks and seasonal special events.</p>
+    </details>
+
+    <!-- 6. 通过将contentteditable属性设置为true，可以使任何内容都可编辑。 不管它是div还是p，它都是可编辑的。 此外，还可以使用isContentEditable属性来查找某个元素是否可编辑。 -->
+    <p contenteditable='true'>6. This is a paragraph. Click the button to make me editable.</p>
+
+    <!-- 7. 只需使用 HTML，您就可以使用 <track> 元素为视频文件添加字幕。 使用 src 属性指向字幕文件，使用 srclang 属性设置语言。 -->
+    <!-- <video width="320" height="240" controls>
+        <source src="forrest_gump.mp4" type="video/mp4">
+        <source src="forrest_gump.ogg" type="video/ogg">
+        <track src="fgsubtitles_en.vtt" kind="subtitles" srclang="en" label="English">
+        <track src="fgsubtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian">
+    </video> -->
+
+    <!-- 8. 你可以通过设置加载属性为“lazy”来按需加载图片(也叫惰性加载)。 这是一种简单但非常有效的优化技术，只加载对用户可见的部分，其他图像稍后根据用户的需要加载。 -->
+
+    <span>8. 懒加载</span>
+    <img src="/w3images/wedding.jpg" alt="Wedding" style="width:100%">
+    <img src="/w3images/rocks.jpg" alt="Rocks" style="width:100%">
+
+    <!-- off-screen images -->
+    <img src="/w3images/paris.jpg" alt="Paris" style="width:100%" loading="lazy">
+    <img src="/w3images/nature.jpg" alt="Nature" style="width:100%" loading="lazy">
+    <img src="/w3images/underwater.jpg" alt="Underwater" style="width:100%" loading="lazy">
+    <img src="/w3images/ocean.jpg" alt="Ocean" style="width:100%" loading="lazy">
+    <img src="/w3images/mountainskies.jpg" alt="Mountains" style="width:100%" loading="lazy">
+
+    <!-- 9. 如果您在您的网站上多次调用一个公共域，您可以使用**<base>**元素来设置一个基本URL，如下面提供的代码片段所示。 现在，src在图像元素中的实际值是“www.w3schools.com/images/stic… 如果您使用过像Axios这样的库，那么设置基URL是一种非常常见的做法。 -->
+    <!-- 9. <img src="images/stickman.gif" width="24" height="39" alt="Stickman">
+    <a href="tags/tag_base.asp">HTML base Tag</a> -->
+
+    <!-- 10. 您可以在使用右键单击时收听事件，也可以尝试使用OnContextMenu和OnPaste属性粘贴内容并处理这些事件。如果您不希望用户能够粘贴到密码等某些字段上，则可以在该输入字段上写入Onpaste =“返回false”，用户将无法粘贴到那里。同样，oncontextmenu在用户右键单击该元素时会触发。 -->
+    <!-- 10. <input type="text" onpaste="return false" value="Paste something in here">
+    <div oncontextmenu="myFunction()" contextmenu="mymenu"> -->
+
+    <!-- 11. 当设置为 true 时，拼写检查属性会告诉浏览器必须检查用户在此元素中输入的语法和拼写错误。 这是一个方便的属性，可帮助用户编写正确无误的内容。 -->
+    <p contenteditable="true" spellcheck="true">This is a praggagraph. It is editable. Try to change the text.</p>
+</body>
+
+</html>

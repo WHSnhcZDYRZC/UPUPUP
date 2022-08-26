@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+// var groupArr = []
+
+// function fn(arr1, arr2, group) {
+//     arr1.forEach(v1 => {
+//         var groupBak = [...group]
+//         groupBak.push(v1)
+//         if (arr2.length >= 2) {
+//             fn(arr2[0], arr2.slice(1), groupBak)
+//         } else {
+//             arr2[0].forEach(v2 => {
+//                 groupArr.push([...groupBak, v2])
+//             })
+//         }
+//     })
+// }
+
+<body>
+    <script>
+        // var arr = [['白色', '黑色'], ['16G', '32G', '64G'], ['移动', '联通', '电信']]
+        var arr = [['白色', '黑色'], ['16G', '32G', '64G']]
+        var nullArr = []
+
+
+        function fn(arr) {
+            var le = arr.length
+            if(le >= 2) {
+
+                function fn2(arr1, arr2, arrn) {
+                    arr1.forEach(v => {
+                        if(arr2.length < 2) {
+                            arr2.forEach(v1 => {
+                                nullArr.push(v, v1)
+                            })
+                        }
+                    })
+                }
+                fn2(arr[0], arr.slice(1), [])
+
+            } else {
+                return arr
+            }
+        }
+
+        fn(arr)
+
+        console.log(nullArr);
+        
+        // arr[0].forEach(v1 => {
+        //     arr[1].forEach(v2 => {
+        //         arr[2].forEach(v3 => {
+        //             nullArr.push([v1, v2, v3])
+        //         })
+        //     })
+        // });
+
+        // console.log(nullArr);
+
+
+
+        // fn(arr, nullArr)
+
+        // var num = 0
+        // var a = 0
+        // var b = 1
+
+        // function sum() {
+        //     num++
+        //     if (num > 100) return
+        //     a += b
+        //     b ++
+        //     sum()
+        // }
+
+        // sum()
+    </script>
+</body>
+
+</html>

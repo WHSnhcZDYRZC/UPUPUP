@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let arr = [1, 2, 3]
+        // let obj = {
+        //     name: 'zs',
+        //     age: 18,
+        //     sex: '男'
+        // }
+
+        // const copyArr = JSON.stringify(arr, [0])
+        // const copyObj = JSON.stringify(obj, ['name', 'sex'])
+        // console.log(copyArr);
+        // console.log(copyObj);
+
+        const obj = {
+            name: 'zs',
+            sex: '男',
+            age: 18,
+            // skill: function () {
+            //     console.log(123);
+            // }
+        }
+
+        
+        const jsonObj = JSON.stringify(obj, function (key, value) {
+            // console.log('key', key);
+            // console.log('value', value);
+            // console.log('this', this);
+            switch (key) {
+                case 'sex':
+                    return undefined + ''; 
+                // case 'name':
+                //     return '哈哈';
+                // case 'skill':
+                //     return value + '';
+            }
+
+            return value
+        })
+
+        console.log('jsonObj', jsonObj);
+
+        // console.log(JSON.stringify(obj, null, 5));
+        // console.log(JSON.stringify(obj, null, '--'));
+
+        // let book = {
+        //     title: "Professional JavaScript",
+        //     authors: [
+        //         "Nicholas C. Zakas",
+        //         "Matt Frisbie"
+        //     ],
+        //     edition: 4,
+        //     year: 2017,
+        //     toJSON: function () {
+        //         return this;
+        //     }
+        // };
+        // let jsonText = JSON.stringify(book, null, 4);
+        // console.log(jsonText);
+
+
+        // let book = {
+        //     title: "Professional JavaScript",
+        //     authors: [
+        //         "Nicholas C. Zakas",
+        //         "Matt Frisbie"
+        //     ],
+        //     edition: 4,
+        //     year: 2017
+        // };
+
+        // const res = JSON.parse(jsonObj, (key, value) => {
+        //     // console.log('key', key);
+        //     // console.log('value', value);
+        //     switch (key) {
+        //         case 'skill':
+        //             return new Function(`return ${value}`)();
+        //     }
+
+        //     return value;
+        // })
+
+        // console.log(res);
+
+        // console.log(res.skill());
+
+        // var foo = {
+        //     foundation: "Mozilla",
+        //     model: "box",
+        //     week: 45,
+        //     transport: "car",
+        //     month: 7,
+        //     fn() {
+
+        //     }
+        // };
+
+        // var jsonString = JSON.stringify(foo, function (key, value) {
+        //     console.log('key', key);
+        //     console.log('value', value);
+        //     if (typeof value === "string") {
+        //         return undefined;
+        //     }
+        //     return value;
+        // });
+
+    </script>
+</body>
+
+</html>

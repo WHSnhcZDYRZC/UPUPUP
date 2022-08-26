@@ -1,0 +1,73 @@
+<!-- <script>
+    // setTimeout 当setInterval 一样连续调用
+    var executeTimes = 0;
+    var intervalTime = 500;
+    var intervalId = null;
+
+    // 放开下面的注释运行setInterval的Demo
+    // intervalId = setInterval(intervalFun, intervalTime);
+    // 放开下面的注释运行setTimeout的Demo
+    setTimeout(timeOutFun,intervalTime);
+
+    // function intervalFun() {
+    //     executeTimes++;
+    //     console.log("doIntervalFun——" + executeTimes);
+    //     if (executeTimes == 5) {
+    //         clearInterval(intervalId);
+    //     }
+    // }
+
+    function timeOutFun() {
+        executeTimes++;
+        console.log("doTimeOutFun——" + executeTimes);
+        if (executeTimes < 5) {
+            // setTimeout(arguments.callee, intervalTime);
+            // setTimeout(timeOutFun, intervalTime);
+        }
+    }
+</script> -->
+
+<!-- <script>
+    var num = 0;
+
+    function timerOutFn() {
+        if (num >= 5) return
+        setTimeout(() => {
+            console.log(num);
+            num++;
+            timerOutFn()
+        }, 500)
+    }
+
+    timerOutFn()
+</script> -->
+
+<!-- <script>
+    // 匿名函数中的this都是指向window 
+    [1].forEach(function () {
+        console.log(this);
+    })
+</script> -->
+
+<!-- <script>
+//  Chrome Opera 的 JavaScript 解析引擎遵循的是新版 ECMA-262 第五版规范。因此，使用 for-in 语句遍历对象属性时遍历顺序并非属性构建顺序。而 IE6 IE7 IE8 Firefox Safari 的 JavaScript 解析引擎遵循的是较老的 ECMA-262 第三版规范，属性遍历顺序由属性构建的顺序决定。
+
+// 如果我们需要按照一定的顺序输出属性，也可以先在一个数组中保存所有的key值，再将数组排序，最后循环这个key数组，通过key获取对象中的属性即可
+
+// var arr = ['zs', 'ls', 1 ,'ww']
+// arr.hi = 123;
+// arr.__proto__.h = 456;
+// console.log(arr);
+
+// // for(var i in arr) {
+// //     console.log(arr[i]);
+// // }
+
+// arr.forEach(v => {
+//     console.log(v);
+// })
+</script> -->
+
+<script>
+    console.dir(function fn() {});
+</script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        ; (() => {
+            const request = window.indexedDB.open('myDb');
+
+            var db;
+            // error事件表示打开数据库失败
+            request.onerror = function (event) {
+                console.log('数据库打开报错');
+            };
+
+            // success事件表示打开数据库成功
+            request.onsuccess = function (event) {
+                console.log('数据库打开成功');
+                db = request.result;
+                let result = db.transaction(['person'], 'readwrite').objectStore('person')
+                    // 增加
+                    // .add({
+                    //     id: 2,
+                    //     name: 'ls',
+                    //     age: 23
+                    // })
+                    // 修改
+                    // .put({
+                    //     id: 1,
+                    //     name: 'ls',
+                    //     age: 23
+                    // })
+                    // 删除(只需要删除key就可以了)
+                    // .delete(1)
+                    // 查询
+                    .get('zs')
+                result.onsuccess = () => {
+                    console.log(result.result);
+                    console.log( db.transaction(['person'], 'readwrite').objectStore('person'));
+                }
+
+                let result2 = db.transaction(['person'], 'readwrite').objectStore('person').getAll()
+                result2.onsuccess = () => {
+                    console.log(result2.result);
+                }
+            };
+
+            // upgradeneeded事件 如果指定的版本号，大于数据库的实际版本号，就会发生数据库升级事件upgradeneeded
+            request.onupgradeneeded = function (event) {
+                db = event.target.result;
+                var objectStore;
+                if (!db.objectStoreNames.contains('person')) {
+                    objectStore = db.createObjectStore('person', { keyPath: 'id' });
+                }
+            }
+
+            setTimeout(() => {
+                console.log(db);
+            }, 1000)
+        })()
+    </script>
+</body>
+
+</html>

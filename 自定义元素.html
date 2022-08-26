@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <fff>
+        123
+    </fff>
+
+    <div class="box"></div>
+
+    <template>
+        <p> 我是重构后的 </p>
+    </template> -->
+
+    <!-- <x-foo>123</x-foo> -->
+
+    <input type="text" is="my-input" ></input>
+
+    <script>
+        class myInput extends HTMLInputElement {
+            // static get observedAttributes() {
+            //     // 返回应该触发 attributeChangedCallback()执行的属性
+            //     return ['value'];
+            // }
+
+            constructor() {
+                super();
+                this.value = '';
+            }
+        }
+        customElements.define('my-input', myInput, { extends: 'input' });
+
+        // // customElements.whenDefined(name) : Promise<CustomElementConstructor>;
+        // document.body.innerHTML = `
+        // <nav id="menu-container">
+        // <div class="menu-placeholder">Loading...</div>
+        // <nav-menu>
+        //     <menu-item>Item 1</menu-item>
+        //     <menu-item>Item 2</menu-item>
+        //     ...
+        //     <menu-item>Item N</menu-item>
+        // </nav-menu>
+        // </nav>
+        // `
+
+        // const container = document.getElementById('menu-container');
+        // // console.log(container);
+        // const placeholder = container.querySelector('.menu-placeholder');
+        // // console.log(placeholder);
+        // // // Fetch all the children of menu that are not yet defined.
+        // const undefinedElements = container.querySelectorAll(':not(:defined)');
+        // // console.log(undefinedElements);
+
+        // async function removePlaceholder(){
+        // const promises = [...undefinedElements].map(
+        //     button => {
+        //         console.log(button.localName);
+        //         return customElements.whenDefined(button.localName)
+        //     }
+        // );
+
+        // // // Wait for all the children to be upgraded
+        // console.log(promises);
+        // const res = await Promise.all(promises);
+        // console.log(res);
+        // console.log(789);
+
+        // console.log('placeholder', placeholder);
+        // // then remove the placeholder
+        // container.removeChild(placeholder);
+        // }
+
+        // removePlaceholder();
+
+
+
+
+        // const fooTag = document.querySelector('fff')
+
+        // console.dir(fooTag instanceof HTMLUnknownElement); // true
+        // console.dir(fooTag instanceof HTMLElement); // true
+
+        // class fooElement extends HTMLElement {
+        //     constructor() {
+        //         super();
+        //         console.log(this);
+        //     }
+        // }
+        // customElements.define('x-foo', fooElement);
+        // document.body.innerHTML = `
+        // <x-foo>1</x-foo>
+        // <x-foo>2</x-foo>
+        // <x-foo>3</x-foo>
+        // `;
+
+        // console.dir(document.querySelector('x-foo')); // x-foo
+        // console.log(document.querySelector('x-foo') instanceof fooElement); // true
+
+        // class FooElement extends HTMLDivElement {
+        //     constructor() {
+        //         super();
+        //         console.log('x-foo')
+        //     }
+        // }
+        // customElements.define('x-foo', FooElement, { extends: 'div' });
+        // document.body.innerHTML = `
+        // <div is="x-foo">1</div>
+        // <div is="x-foo">2</div>
+        // <div is="x-foo">3</div>
+        // `;
+
+        /* // web 组件添加内容
+        class FooElement extends HTMLElement {
+            constructor() {
+                super();
+                // this 引用 Web 组件节点
+                this.attachShadow({ mode: 'open' });
+                this.shadowRoot.innerHTML = `
+                <p>我是影子 DOM </p>
+                `;
+            }
+        }
+        customElements.define('x-foo', FooElement);
+        document.body.innerHTML += `<x-foo></x-foo>`; */
+
+        /* // 以上为简易版本为避免字符串模板和 innerHTML 不干净，可以使用 HTML 模板和 document.createElement() 重构
+        const template = document.querySelector('template')
+
+        class FooElement extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' }).innerHTML = ` <style> p { color: red; } </style>`
+                this.shadowRoot.appendChild(template.content.cloneNode(true));
+            }
+        }
+
+        customElements.define('x-foo', FooElement);
+        const xFoo = document.createElement('x-foo')
+        document.body.appendChild(xFoo);
+
+        // document.body.innerHTML = `<x-foo></x-foo>` */
+
+        // console.dir(HTMLElement);
+
+
+        /*  // 生命周期
+            class myDiv extends HTMLElement {
+
+            static get observedAttributes() {
+                return ['rows'];
+            }
+
+            constructor() {
+                super();
+                console.log('constructor');
+            }
+
+            connectedCallback() {
+                console.log('connected');
+            }
+
+            disconnectedCallback() {
+                console.log('disconnected');
+            }
+
+            attributeChangedCallback(attrName, oldVal, newVal) {
+                console.log(attrName, oldVal, newVal);
+                console.log('attributeChangedCallback');
+            }
+
+            adoptedCallback() {
+                console.log('adoptedCallback');
+            }
+
+        }
+
+        customElements.define('my-div', myDiv);
+        const myD = document.createElement('my-div') // constructor
+        document.body.append(myD) // connected
+        document.querySelector('.box').append(myD) // disconnected
+        myD.setAttribute('rows', 1) // rows null 1 attributeChangedCallback
+        // document.body.removeChild(myD); */
+
+        /* // js -> dom
+        document.body.innerHTML = `<x-foo></x-foo>`;
+        class FooElement extends HTMLElement {
+            constructor() {
+                super();
+                this.bar = true;
+            }
+            get bar() {
+                console.log('被查看了！');
+                return this.getAttribute('bar');
+            }
+            set bar(value) {
+                console.log('被修改了！');
+                this.setAttribute('bar', value)
+            }
+        }
+        customElements.define('x-foo', FooElement);
+        console.log(document.body.innerHTML);
+        // <x-foo bar="true"></x-foo> */
+
+        /* // dom -> js
+           class FooElement extends HTMLElement {
+            static get observedAttributes() {
+                // 返回应该触发 attributeChangedCallback()执行的属性
+                return ['bar'];
+            }
+            get bar() {
+                return this.getAttribute('bar');
+            }
+            set bar(value) {
+                this.setAttribute('bar', value)
+            }
+            attributeChangedCallback(name, oldValue, newValue) {
+                console.log(name);
+                if (oldValue !== newValue) {
+                    console.log(`${oldValue} -> ${newValue}`);
+                    this[name] = newValue;
+                }
+            }
+        }
+        customElements.define('x-foo', FooElement); */
+
+        // document.body.innerHTML = `<x-foo bar="false"></x-foo>`;
+        // null -> false
+        // document.querySelector('x-foo').setAttribute('bar', true);
+        // false -> true
+
+        // 升级自定义元素
+        // customElements.whenDefined('spider-man').then(() => console.log('defined!'), () => { console.log('error'); });
+        // console.log(customElements.get('x-foo'));
+        // // // undefined
+        // customElements.define('x-foo', class {
+        //     // constructor() {
+        //         // super()
+        //     // }
+        //  });
+        // // // // defined!
+        // console.log(customElements.get('x-foo'));
+        // // // class FooElement {}
+        // // // 连接到 DOM 的元素在自定义元素有定义时会自动升级。如果想在元素连接到 DOM 之前强制升级，
+        // // // 可以使用 CustomElementRegistry.upgrade()方法：
+        // // // 在自定义元素有定义之前会创建 HTMLUnknownElement 对象
+        // const fooElement = document.createElement('x-foo');
+        // // // 创建自定义元素
+        // class FooElement extends HTMLElement { }
+        // customElements.define('x-foo', FooElement);
+        // console.log(fooElement instanceof FooElement); // false
+        // // 强制升级
+        // customElements.upgrade(fooElement);
+        // console.log(fooElement instanceof FooElement); // true
+
+        // const fooDom = document.querySelector('x-foo')
+        // console.dir(fooDom);
+
+        // class f extends HTMLElement {}
+        // class w extends Element {}
+        // customElements.define('x-foo', w)
+        // const fooElement = document.createElement('x-foo');
+
+        // customElements.define('x-foo', f)
+
+
+        // customElements.upgrade(fooElement);
+
+        // const el = document.createElement("spider-man");
+
+        // class SpiderMan extends HTMLElement { }
+        // customElements.define("spider-man", SpiderMan); // defined
+
+        // console.log(el instanceof SpiderMan); // not yet upgraded
+
+        // customElements.upgrade(el);
+        // console.log(el instanceof SpiderMan);    // upgraded!
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <!-- 如果表单中有上述任何一个按钮，且焦点在表单中某个控件上，则按回车键也可以提交表单。（textarea 控件是个例外，当焦点在它上面时，按回车键会换行。） -->
+        <input type="text" value="123" readOnly> 
+        <input type="submit" value="点击">
+    </form>
+
+    <canvas></canvas>
+    <script>
+        const canvas = document.querySelector('canvas');
+
+        // 确保浏览器支持<canvas>
+        if (canvas.getContext) {
+            // 2D
+            // const context = canvas.getContext('2d');
+            /* 
+            绘制矩形
+            context.lineWidth = 1;
+            // context.lineCap = 'butt';
+            // context.lineJoin = 'round';
+
+            context.strokeStyle = "#ff0000"
+            // x, y, w, h
+            context.strokeRect(1, 1, 100, 100)
+
+            // 绘制一个红色矩形
+            context.fillStyle = "#ff0000";
+            context.fillRect(10, 10, 50, 50);
+
+            // 绘制一个半透明蓝色矩形
+            context.fillStyle = "rgba(0, 0, 255, 0.5)";
+            context.fillRect(30, 30, 50, 50);
+
+            // 在前两个矩形重叠的区域擦除一个矩形区域
+            context.clearRect(35, 35, 20, 20); */
+
+            /* 
+            绘制圆
+            // 创建路径
+            context.beginPath();
+            // 绘制外圆
+            context.arc(50, 50, 49.5, 0, 2 * Math.PI, false);
+            // 绘制内圆
+            context.moveTo(97, 50);
+            context.arc(50, 50, 47, 0, 2 * Math.PI, false);
+            // 绘制分针
+            context.moveTo(50, 50);
+            context.lineTo(50, 7.5);
+            // 绘制时针
+            context.moveTo(50, 50);
+            context.lineTo(17.5, 50);
+            // 描画路径
+            context.stroke(); */
+
+            /* 
+            文字
+            context.font = "bold 14px Arial";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillText("haha", 100, 20); */
+
+            // webGl 我这里实在学不动了
+            let gl = canvas.getContext("webgl");
+            if (gl) {
+                // 使
+                // let program = gl.createProgram();
+                // console.log(gl);
+                // let vertices = new Float32Array([0, 1, 1, -1, -1, -1]),
+                //     buffer = gl.createBuffer(),
+                //     vertexSetSize = 2,
+                //     vertexSetCount = vertices.length / vertexSetSize,
+                //     uColor,
+                //     aVertexPosition;
+                // // 将数据放入缓冲区
+                // gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+                // gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+                // // 给片段着色器传入颜色
+                // uColor = gl.getUniformLocation(program, "uColor");
+                // gl.uniform4fv(uColor, [0, 0, 0, 1]);
+                // // 把顶点信息传给着色器
+                // aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+                // gl.enableVertexAttribArray(aVertexPosition);
+                // gl.vertexAttribPointer(aVertexPosition, vertexSetSize, gl.FLOAT, false, 0, 0);
+                // // 绘制三角形
+                // gl.drawArrays(gl.TRIANGLES, 0, vertexSetCount);
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

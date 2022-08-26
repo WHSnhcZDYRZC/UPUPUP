@@ -1,0 +1,186 @@
+<!-- <script>
+    // src/obserber/index.js
+    class Observer {
+        // 观测值
+        constructor(value) {
+            this.walk(value);
+        }
+        walk(data) {
+            // 对象上的所有属性依次进行观测
+            let keys = Object.keys(data);
+            for (let i = 0; i < keys.length; i++) {
+                let key = keys[i];
+                let value = data[key];
+                defineReactive(data, key, value);
+            }
+        }
+    }
+    // Object.defineProperty数据劫持核心 兼容性在ie9以及以上
+    function defineReactive(data, key, value) {
+        observe(value); // 递归关键
+        // --如果value还是一个对象会继续走一遍odefineReactive 层层遍历一直到value不是对象才停止
+        //   思考？如果Vue数据嵌套层级过深 >>性能会受影响
+        Object.defineProperty(data, key, {
+            get() {
+                console.log("获取值");
+                return value;
+            },
+            set(newValue) {
+                if (newValue === value) return;
+                console.log("设置值");
+                value = newValue;
+            },
+        });
+    }
+
+    function observe(value) {
+        // 如果传过来的是对象或者数组 进行属性劫持
+        if (
+            Object.prototype.toString.call(value) === "[object Object]" ||
+            Array.isArray(value)
+        ) {
+            return new Observer(value);
+        }
+    }
+
+    let obj = {
+        name: 'zs',
+        age: 18,
+        sex: '男',
+        obj1: {
+            dizhi: 'xxx'
+        }
+    };
+
+    new Observer(obj);
+
+</script> -->
+
+<!-- <script>
+    function watch(o) {
+        Object.keys(o).forEach(v => {
+            let key = v;
+            let value = o[v];
+            Object.defineProperty(o, v, {
+                get() {
+                    console.log('获取值！');
+                    return value
+                },
+                set(newValue) {
+                    console.log('设置值');
+                    value = newValue
+                }
+            })   
+        })
+    }
+
+    var arr = [1, 2, 3, 'zs', 'ls', 'ww']
+
+    watch(arr)
+    // let obj = {
+    //     name: 'zs',
+    //     age: 18,
+    //     sex: '男',
+    // };
+
+    // watch(obj)
+</script> -->
+
+<!-- <script>
+    var arr = ['zs', 'li', 'ww'];
+    console.log(Object.keys(arr));
+</script> -->
+
+<!-- <script>
+    function deepCopy(source) {
+        if (!isObject(source)) return source; //如果不是对象的话直接返回
+        let target = Array.isArray(source) ? [] : {} //数组兼容
+        for (var k in source) {
+            if (source.hasOwnProperty(k)) {
+                if (typeof source[k] === 'object') {
+                    target[k] = deepCopy(source[k])
+                } else {
+                    target[k] = source[k]
+                }
+            }
+        }
+        return target
+    }
+
+    function isObject(obj) {
+        return typeof obj === 'object' && obj !== null
+    }
+
+    var obj = {
+        obj1: {
+            name: 'zs'
+        },
+        fn() {
+            console.log('哈哈');
+        }
+    }
+
+    var copyObj = deepCopy(obj);
+
+    copyObj.obj1.name = 'ls';
+    copyObj.fn.cName = 'fnHaha'
+    
+    console.log('copyObj', copyObj, 'obj', obj);
+</script> -->
+
+<!-- <script>
+    var arr = [{
+        name: 'zs',
+        age: 18
+    },{
+        name: 'ls',
+        age: 20
+    }]
+
+    var arr1 = JSON.parse(JSON.stringify(arr))
+
+    arr1[0].name = 'zl'
+    
+    console.log('arr1', arr1, 'arr', arr);
+</script> -->
+
+<!-- <script>
+    var that;
+    class Observer {
+        // 观测值
+        constructor(value) {
+            Object.defineProperty(value, "__ob__", {
+                //  值指代的就是Observer的实例
+                value: that = this,
+                //  不可枚举
+                // enumerable: false,
+                enumerable: true,
+                writable: true,
+                configurable: true,
+            });
+        }
+    }
+
+    var obj = {
+        name: 'zs'
+    }
+
+    var a = new Observer(obj)
+    // console.log(a === that);
+    console.log(obj);
+
+</script> -->
+
+<!-- <script>
+    var obj = {
+        name: 'zs'
+    }
+
+    Object.defineProperty(obj, "__ob__", {
+        value: that = this,
+        enumerable: false,
+        writable: true,
+        configurable: true,
+    });
+
+</script> -->

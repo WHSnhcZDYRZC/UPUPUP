@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 简单数据类型 symbol
+        var sym = Symbol();
+
+        let objKey1 = Symbol('haha')
+
+        var obj = {
+            [objKey1]: 'haha',
+            haha: 'haha'
+        }
+
+        let mySymbol1 = Symbol.for('haha');
+        let mySymbol2 = Symbol.for('haha');
+        console.log(Symbol.keyFor(mySymbol1)); // haha
+        console.log(mySymbol1 === mySymbol2); // true
+
+        let mySymbol3 = Symbol('haha');
+        let mySymbol4 = Symbol('haha');
+        console.log(Symbol.keyFor(mySymbol3)); // undefined
+        console.log(mySymbol3 === mySymbol4); // false
+
+        /* // 返回字符串键数组
+        console.log(Object.getOwnPropertyNames(obj));
+
+        // 返回symbol键数组
+        console.log(Object.getOwnPropertySymbols(obj));
+
+        // 返回字符串加symbol对象
+        console.log(Object.getOwnPropertyDescriptors(obj));
+
+        // 返回字符串加symbol数组
+        console.log(Reflect.ownKeys(obj)); */
+    </script>
+</body>
+
+</html>

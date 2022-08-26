@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // lable 任何不属于保留关键字的 JavaScript 标识符:
+        // statement JavaScript 语句。break 可用于任何标记语句，而 continue 可用于循环标记语句。
+        // label : statement
+
+        // 标记语句可以和 break 或 continue 语句一起使用。标记就是在一条语句前面加个可以引用的标识符（identifier）
+        // 需要注意的是，JavaScript 没有 goto 语句，标记只能和 break 或 continue 一起使用。
+        // 在严格模式中，你不能使用 “let” 作为标签名称。它会抛出一个 SyntaxError（因为 let 是一个保留的标识符）。
+
+        // 比如 循环中使用
+        // let index = 0;
+        // start: for(var i = 0; i < 5; i++) {
+        //     if(i === 2) continue start;
+        //     index++;
+        // }
+
+        // console.log(index);
+
+        // 在标记块中使用 break
+        // 你可以在代码块中使用标记，但只有 break 语句可以使用非循环标记。
+        // label2:{
+        //    console.log(1);
+        //    break label2
+        //    console.log(2);
+        // }
+
+        // 标记函数声明
+        // 从ECMAScript 2015开始，标准的函数声明现在对规范的 Web 兼容性附件中的非严格代码进行了标准化（弄不了）。
+
+        // 'use strict';
+        // L: function fn() {}
+
+        var a = 1;
+        // a = a + 1;
+
+        function fn(x = y, y = 2) {
+            console.log(x);
+        }
+
+        fn()
+    </script>
+</body>
+
+</html>

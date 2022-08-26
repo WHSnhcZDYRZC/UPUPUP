@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const testFn = { toString: () => "是不是调用了？我说的没错吧！" };
+      let str = `你好，今天看了书发现了模板语法的真谛，中间插入的东西最后都会调用他的 toString()方法， 测试：${testFn}`;
+      console.log(str);
+    </script>
+  </body>
+</html>

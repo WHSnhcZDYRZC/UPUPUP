@@ -1,0 +1,20 @@
+<script>
+    let obj = {
+        name: 'zs',
+        age: 18
+    };
+
+    // 不可扩展 （注意：他还是可以修改里面的值，也可以删除，仅阻止添加自身的属性。但属性仍然可以添加到对象原型）
+    // Object.preventExtensions(obj);
+    // obj.age = 19;
+    // delete obj.name;
+
+    // 密封对象 （注意：他还是可以修改里面的值，密封对象不可扩展）
+    // Object.seal(obj)
+    // obj.age = 19;
+
+    // 冻结的对象 （既不可以扩展，又是密封的，而且对象数据属性的[[writable]]特性会被设置为false）
+    Object.freeze(obj);
+
+    console.log(obj);
+</script>

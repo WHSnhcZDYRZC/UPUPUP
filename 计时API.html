@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="https://article-fd.zol-img.com.cn/t_s640x360c5/g5/M00/0A/02/ChMkJltpVgqICIMzAAO-ELA0a2sAAqi_wFCHtUAA74o596.jpg"
+        alt="">
+    <script>
+        //#region High Resolution Time API
+        // console.log(Date.now());
+        // console.log(performance.timeOrigin);
+
+        // function foo() {
+        //     var arr = []
+        //     for (var i = 0, len = 100; i < len; i++) {
+        //         arr.push(i)
+        //     }
+
+        //     return arr
+        // }
+
+        // // var time1 = new Date();
+        // var time1 = performance.now();
+        // foo();
+
+        // // var time2 = new Date();
+        // var time2 = performance.now();
+
+        // var overTime = time2 - time1;
+
+        // console.log(overTime);
+        //#endregion
+
+        // console.log(performance.getEntries()[0]);
+
+        // (() => {
+        //     // 计算开始和结束时间 性能条目
+        //     performance.mark('foo');
+        //     for (let i = 0; i < 1E6; ++i) { }
+        //     performance.mark('bar');
+        //     const res = performance.getEntriesByType('mark');
+        //     const time = res[1].startTime - res[0].startTime;
+        //     console.log(res);
+        // })()
+
+        // (() => {
+        //     // 性能度量条目
+        //     performance.mark('foo');
+        //     for (let i = 0; i < 1E6; ++i) { }
+        //     performance.mark('bar');
+        //     performance.measure('baz', 'foo', 'bar');
+        //     const res = performance.getEntriesByType('measure');
+        //     console.log(res[0].duration);
+        // })()
+
+        // 页面从 0 - 1 的时间
+        // const [performanceNavigationTimingEntry] = performance.getEntriesByType('navigation');
+        // console.log(performanceNavigationTimingEntry);
+        // console.log(performanceNavigationTimingEntry.loadEventEnd - performanceNavigationTimingEntry.loadEventStart);
+
+        // 资源请求
+        const performanceResourceTimingEntry = performance.getEntriesByType('resource')[0];
+        console.log(performanceResourceTimingEntry.responseEnd - performanceResourceTimingEntry.requestStart);
+    </script>
+</body>
+
+</html>

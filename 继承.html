@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    //     // Object.create = undefined
+    //     // 兼容性
+    //     if (!Object.create) {
+    //         Object.create = function (_prototype) {
+    //             function fn() { }
+    //             fn.prototype = _prototype
+    //             return new fn
+    //         }
+    //     }
+
+    //     function Animal(age, sex) {
+    //         this.age = age;
+    //         this.sex = sex;
+    //         // 但是一般不定义在这里为什么？懒得解释反正我知道
+    //         // this.skill = () => {
+    //         //     console.log('吃...');
+    //         // }
+    //     }
+    //     Animal.prototype.skill = () => {
+    //         console.log('吃...');
+    //     }
+
+    //     function Dog(age, sex, name) {
+    //         Animal.call(this, age, sex)
+    //         this.name = name
+    //     };
+
+    //     // 语义化不好
+    //     // Dog.prototype =
+    //     // Dog.prototype = new Animal()
+    //     // Dog.prototype = Object.create(Animal.prototype)
+
+    //     var dog = new Dog('3', '公', 'haha')
+    //     // console.log(dog);
+
+    //     console.log(dog.skill());
+    // </script>
+
+    <!-- <script>
+        function Page() {
+            return this.hosts;
+        }
+
+        Page.hosts = ['h1'];
+        Page.prototype.hosts = ['h2'];
+        const p1 = new Page()
+        const p2 = Page()
+
+        console.log(p1.hosts);
+        console.log(p2.hosts);
+    </script> -->
+
+    <script>
+        function People(name) {
+            // 组合式继承调用两次耗费性能
+            // console.log(1);
+            this.name = name;
+            this.skill = ['吃饭喝酒']
+        }
+
+        People.prototype.sing = function() {
+            console.log('我会唱青藏高原');
+        }
+
+        /* 寄生式继承 */
+        function womanPeople(name, age, sex) {
+            People.call(this, name)
+            this.age = age;
+            this.sex = sex;
+        }
+
+        ;(() => {
+            let obj = Object.create(People.prototype);
+            // let obj = {}
+            // obj.__proto__ = People.prototype
+            obj.constructor = womanPeople;
+            womanPeople.prototype = obj
+        })();
+
+        womanPeople.prototype.ult = function() {
+            console.log('吃饭');
+        }
+
+        /* 组合式继承 */
+        function manPeople(name, age) {
+            People.call(this, name)
+            this.age = age;
+        }
+
+        manPeople.prototype = new People(); 
+
+        // var man1 = new manPeople('zs', 18)
+        // var man2 = new manPeople('ls', 20)
+
+        console.dir(womanPeople);
+        var woman = new womanPeople('zl', 20, '女')
+        console.log(woman);
+        // console.log(woman instanceof womanPeople);
+        // console.log(woman instanceof People);
+        // woman.__proto__.__proto__ = {
+        //     constructor: People
+        // };
+        // console.log(woman instanceof womanPeople);
+        // console.log(woman instanceof People);
+    </script>
+</body>
+
+</html>

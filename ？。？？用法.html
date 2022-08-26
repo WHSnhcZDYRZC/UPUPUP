@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // ?.用法
+      let obj = {
+        name: {
+          hehe: "hehe",
+        },
+        age: 18,
+      };
+
+      const peopleName = obj.name?.hehe || "没有";
+      const peopleAge = obj.age?.hehe || "没有";
+
+      console.log(peopleName);
+      console.log(peopleAge);
+
+      // ??用法 读取对象属性的时候，如果某个属性的值是null或undefined，有时候需要为它们指定默认值。常见做法是通过||运算符指定默认值。
+      //   let b = false || "123"; // 123
+      //   let b = false ?? "123"; // false
+      //   let b = "" ?? "123"; // ""
+      //   let b = null ?? "123"; // 123
+      //   let b = undefined ?? "123"; // 123
+
+    </script>
+  </body>
+</html>

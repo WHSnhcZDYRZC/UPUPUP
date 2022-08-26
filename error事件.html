@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // window.addEventListener('error', e => {
+        //     console.log('window.error', e);
+        //     e.preventDefault();
+        //     // return true;
+        // })
+
+        // const img = new Image();
+        // img.src = 'https://juejin.cn/favicon.icosdasdasda'
+
+        // var a = b;
+
+        // img.onerror = e => {
+        //     // console.log(e);
+        //     e.preventDefault();
+        //     return false;
+        // }
+
+        // img.addEventListener('error', e => {
+        //     e.preventDefault();
+        //     return false;
+        // })
+
+
+        //     console.log(message);
+        //     return false;
+        // };
+
+        function fn() {
+            return new Promise(resolve => {
+                // throw new Error('123')
+                const xhr = new XMLHttpRequest();
+                xhr.open('get', 'https://juejin.cn/favicon.icosdasdasda', true);
+                xhr.onreadystatechange = e => {
+                    resolve([e, 1])
+                }
+                xhr.send()
+                // throw new Error('123')
+                xhr.addEventListener('error', (e) => {
+                    console.log('xhr.error', e);
+                    e.preventDefault();
+                    return false;
+                })
+            })
+        }
+
+        fn().then(() => {
+            console.log(1);
+        }, (e) => {
+            console.log(e);
+        })
+
+        // (async () => {
+        //     try {
+        //         await fn()
+        //     } catch (error) {
+        //         console.log('try', error);
+        //     }
+        // })()
+
+        // const xhr = new XMLHttpRequest();
+        // try {
+        //     xhr.open('get', 'https://juejin.cn/post/7076677439975325733/haha', false);
+        //     xhr.onreadystatechange = e => {
+        //         resolve([e, 1])
+        //     }
+        //     xhr.addEventListener('error', (e) => {
+        //         console.log('xhr.error', e);
+        //         e.preventDefault();
+        //         return false;
+        //     })
+
+        //     xhr.send()
+        // } catch (error) {
+        //     console.log(error);
+        // }
+
+    </script>
+</body>
+
+</html>

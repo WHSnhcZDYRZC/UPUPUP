@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="background-color:rgb(1, 2, 3);"></div>
+    <!-- <script>
+        class Observer {
+            // 观测值
+            constructor(value) {
+                this.walk(value);
+            }
+            walk(data) {
+                // 对象上的所有属性依次进行观测
+                let keys = Object.keys(data);
+                for (let i = 0; i < keys.length; i++) {
+                    let key = keys[i];
+                    let value = data[key];
+                    defineReactive(data, key, value);
+                }
+            }
+        }
+        // Object.defineProperty数据劫持核心 兼容性在ie9以及以上
+        function defineReactive(data, key, value) {
+            observe(value); // 递归关键
+            // --如果value还是一个对象会继续走一遍odefineReactive 层层遍历一直到value不是对象才停止
+            //   思考？如果Vue数据嵌套层级过深 >>性能会受影响
+            Object.defineProperty(data, key, {
+                get() {
+                    console.log("获取值");
+
+                    //需要做依赖收集过程 这里代码没写出来
+                    return value;
+                },
+                set(newValue) {
+                    if (newValue === value) return;
+                    console.log("设置值");
+                    //需要做派发更新过程 这里代码没写出来
+                    value = newValue;
+                },
+            });
+        }
+        export function observe(value) {
+            // 如果传过来的是对象或者数组 进行属性劫持
+            if (
+                Object.prototype.toString.call(value) === "[object Object]" ||
+                Array.isArray(value)
+            ) {
+                return new Observer(value);
+            }
+        }
+    </script> -->
+
+    <!-- <script>
+        let obj = {
+            a: 10
+        }
+        let a = obj.a
+        Object.defineProperty(obj, 'a', {
+            get() {
+                console.log('进来了');
+                return a;
+            },
+            set(v) {
+                console.log('出去了', v);
+                a = v;
+                return;
+            }
+        })
+
+        // obj.a = 1;
+        // console.log(obj);
+    </script> -->
+
+    <!-- <script>
+        function fn(...a) {
+            console.log(a);
+        }
+
+        fn([3333,2222,1,4,5])
+    </script> -->
+
+    <!-- <script>
+        // src/obserber/array.js
+        // 先保留数组原型
+        const arrayProto = Array.prototype;
+        // 然后将arrayMethods继承自数组原型
+        // 这里是面向切片编程思想（AOP）--不破坏封装的前提下，动态的扩展功能
+        export const arrayMethods = Object.create(arrayProto);
+        let methodsToPatch = [
+            "push",
+            "pop",
+            "shift",
+            "unshift",
+            "splice",
+            "reverse",
+            "sort",
+        ];
+        methodsToPatch.forEach((method) => {
+            arrayMethods[method] = function (...args) {
+                //   这里保留原型方法的执行结果
+                const result = arrayProto[method].apply(this, args);
+                // 这句话是关键
+                // this代表的就是数据本身 比如数据是{a:[1,2,3]} 那么我们使用a.push(4)  
+                // this就是a  ob就是a.__ob__ 这个属性就是上段代码增加的 代表的是该数据已经被响应式观察过了指向Observer实例
+                const ob = this.__ob__;
+
+                // 这里的标志就是代表数组有新增操作
+                let inserted;
+                switch (method) {
+                    case "push":
+                    case "unshift":
+                        inserted = args;
+                        break;
+                    case "splice":
+                        inserted = args.slice(2);
+                    default:
+                        break;
+                }
+                // 如果有新增的元素 inserted是一个数组 调用Observer实例的observeArray对数组每一项进行观测
+                if (inserted) ob.observeArray(inserted);
+                // 之后咱们还可以在这里检测到数组改变了之后从而触发视图更新的操作--后续源码会揭晓
+                return result;
+            };
+        });
+    </script> -->
+
+    <!-- <script>
+        let obj = {};
+        let fn = {
+            get(target, propertyKey, receiver) {
+                return 10;
+            }
+        }
+        let proto = new Proxy(obj, fn);
+    </script> -->
+
+    <!-- <script>
+        // 1.[] == ![]结果是什么？为什么？
+        // 解析:
+        // == 中，左右两边都需要转换为数字然后进行比较。
+        // []转换为数字为0。
+        // ![] 首先是转换为布尔值，由于[]作为一个引用类型转换为布尔值为true,
+        //     因此![]为false，进而在转换成数字，变为0。
+        // 0 == 0 ， 结果为true
+    </script> -->
+
+    <!-- <script>
+        /* 
+        4. 对象转原始类型是根据什么流程运行的？
+        对象转原始类型，会调用内置的[ToPrimitive]函数，对于该函数而言，其逻辑如下：
+        1. 如果Symbol.toPrimitive()方法，优先调用再返回调用valueOf()，
+        2. 如果转换为原始类型，则返回调用toString()，
+        3. 如果转换为原始类型，则返回
+        4. 如果都没有返回原始类型，会报错 
+        */
+    </script> -->
+
+    <!-- <script>
+        var a = {
+            value: 0,
+            valueOf: function () {
+                console.log('a');
+                this.value++;
+                return this.value;
+            }
+        };
+        console.log(a == 1 && a == 2)
+    </script> -->
+
+    <!-- <script>
+        var obj = {
+            name: "zs"
+        }
+        const newObj = Object.create(obj)
+        console.log(obj);
+    </script> -->
+
+    <!-- <script>
+        /* function sum(a, b) {
+            let args = Array.prototype.slice.call(arguments);
+            console.log('args', args);
+            console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
+        }
+        sum(1, 2);//3 */
+
+        /* var obj = {
+            0: 1,
+            1: 2,
+            2: 3,
+            3: 4,
+            4: 5,
+            length: 5
+        }
+
+        var arr = Array.prototype.slice.call(obj)
+        console.log(arr); */
+
+        var obj = {
+            0: 1,
+            1: 2,
+            2: 3,
+            3: 4,
+            4: 5,
+            length: 5
+        }
+
+        var arr = Array.from(obj)
+        console.log(arr);
+    </script> -->
+
+    <!-- <script>
+        // let ary = [1, [2, [3, [4, 5]]], 6];// -> [1, 2, 3, 4, 5, 6]
+        // ary = ary.flat(Infinity)
+        // console.log(ary);
+        // str = JSON.stringify(ary)
+        // ary = str.replace(/(\[|\])/g, '').split(',')
+        // console.log(ary);
+        console.log([1,2,3].map(parseInt));
+    </script> -->
+
+    <!-- <script>
+        var b = 0
+
+        Object.defineProperty(window, 'a', {
+            get() {
+                b++
+                return b
+            }
+        })
+        
+        if(a === 1 && a === 2){
+            console.log('good');
+        }
+
+
+    </script> -->
+</body>
+
+</html>

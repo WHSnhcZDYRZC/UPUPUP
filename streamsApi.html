@@ -1,0 +1,246 @@
+<script>
+    /* //#region 可读流
+    // 可读流是对底层数据源的封装。底层数据源可以将数据填充到流中，允许消费者通过流的公共接口读取数据。
+    // ReadableStreamDefaultController 可读流默认控制器
+
+    // 第一步
+    async function* ints() {
+        // 每 1000 毫秒生成一个递增的整数
+        for (let i = 0; i < 5; ++i) {
+            yield await new Promise((resolve) => setTimeout(resolve, 1000, i));
+        }
+    }
+
+    // 这个生成器的值可以通过可读流的控制器传入可读流。访问这个控制器最简单的方式就是创建ReadableStream 的一个实例，并在这个构造函数的 underlyingSource 参数（第一个参数）中定义start()方法，然后在这个方法中使用作为参数传入的 controller。默认情况下，这个控制器参数是ReadableStreamDefaultController 的一个实例：
+
+    // 第二步
+    const readableStream = new ReadableStream({
+        async start(controller) {
+            for await (const item of ints()) {
+                controller.enqueue(item);
+            }
+
+            // 调用控制器的 enqueue()方法可以把值传入控制器。所有值都传完之后，调用 close()关闭流：
+            controller.close();
+        }
+    });
+
+    // 前面的例子把 5 个值加入了流的队列，但没有把它们从队列中读出来。为此，需要一个 Readable-StreamDefaultReader 的实例，该实例可以通过流的 getReader()方法获取。调用这个方法会获得流的锁，保证只有这个读取器可以从流中读取值：
+    // ReadableStreamDefaultReader 可读流默认读取器
+
+    console.log(readableStream);
+    console.log(readableStream.locked); // false 
+    // 第三步
+    const readableStreamDefaultReader = readableStream.getReader();
+    console.log(readableStream.locked); // true
+
+    // 消费者使用这个读取器实例的 read()方法可以读出值：
+
+    // 第四步
+    (async function () {
+        while (true) {
+            const { done, value } = await readableStreamDefaultReader.read();
+            if (done) {
+                break;
+            } else {
+                console.log(value); // 0 1 2 3 4
+            }
+        }
+    })();
+
+    // 和这个方法的区别就是经过了一遍 ReadableStream 实例
+    // (async () => {
+    //     for await (const item of ints()) {
+    //         console.log(item);
+    //     }
+    // })()
+    //#endregion */
+
+    /* //#region 可写流
+    // 可写流是底层数据槽的封装。底层数据槽处理通过流的公共接口写入的数据。
+    // 1. 创建 WritableStream
+
+    async function* ints() {
+        // 每 1000 毫秒生成一个递增的整数
+        for (let i = 0; i < 5; ++i) {
+            yield await new Promise((resolve) => setTimeout(resolve, 1000, i));
+        }
+    }
+
+    // 这些值通过可写流的公共接口可以写入流。在传给 WritableStream 构造函数的 underlyingSink参数中，通过实现 write()方法可以获得写入的数据：
+    // const readableStream = new ReadableStream({
+    //     write(value) {
+    //         console.log(value);
+    //     }
+    // });
+
+    // 2. WritableStreamDefaultWriter 可写流默认写入器
+    // 要把获得的数据写入流，可以通过流的 getWriter()方法获取 WritableStreamDefaultWriter的实例。这样会获得流的锁，确保只有一个写入器可以向流中写入数据：
+
+    const writableStream = new WritableStream({
+        write(value) {
+            console.log('value', value);
+        }
+    });
+    console.log(writableStream.locked); // false 
+    const writableStreamDefaultWriter = writableStream.getWriter();
+    console.log(writableStream.locked); // true
+
+    // 生产者
+    (async function () {
+        for await (let chunk of ints()) {
+            await writableStreamDefaultWriter.ready;
+            console.log(chunk);
+            writableStreamDefaultWriter.write(chunk);
+        }
+        writableStreamDefaultWriter.close();
+    })();
+    //#endregion */
+
+    /* //#region 转换流
+    // 转换流用于组合可读流和可写流。数据块在两个流之间的转换是通过 transform()方法完成的。来看下面的生成器，它每 1000 毫秒就会生成一个递增的整数：
+
+    async function* ints() {
+        // 每 1000 毫秒生成一个递增的整数
+        for (let i = 0; i < 5; ++i) {
+            yield await new Promise((resolve) => setTimeout(resolve, 1000, i));
+        }
+    }
+
+    // 下面的代码创建了一个 TransformStream 的实例，通过 transform()方法将每个值翻倍：
+    const { writable, readable } = new TransformStream({
+        transform(chunk, controller) {
+            controller.enqueue(typeof chunk === 'string' ? chunk : chunk * 2);
+        }
+    });
+
+    const readableStreamDefaultReader = readable.getReader();
+    const writableStreamDefaultWriter = writable.getWriter();
+
+    // 消费者
+    (async function () {
+        while (true) {
+            const { done, value } = await readableStreamDefaultReader.read();
+            if (done) {
+                break;
+            } else {
+                console.log(value);
+            }
+        }
+    })();
+
+    // 生产者
+    (async function () {
+        for await (let chunk of ints()) {
+            await writableStreamDefaultWriter.ready;
+            writableStreamDefaultWriter.write(chunk);
+        }
+        writableStreamDefaultWriter.write('haha');
+        writableStreamDefaultWriter.close();
+    })();
+
+    //#endregion */
+
+
+    /* //#region  通过管道连接流
+    // 流可以通过管道连接成一串。最常见的用例是使用 pipeThrough()方法把 ReadableStream 接入TransformStream。从内部看，ReadableStream 先把自己的值传给 TransformStream 内部的
+    // WritableStream，然后执行转换，接着转换后的值又在新的 ReadableStream 上出现。下面的例子将一个整数的 ReadableStream 传入 TransformStream，TransformStream 对每个值做加倍处理：
+
+    async function* ints() {
+        // 每 1000 毫秒生成一个递增的整数
+        for (let i = 0; i < 5; ++i) {
+            yield await new Promise((resolve) => setTimeout(resolve, 1000, i));
+        }
+    }
+    const integerStream = new ReadableStream({
+        async start(controller) {
+            for await (let chunk of ints()) {
+                controller.enqueue(chunk);
+            }
+            controller.close();
+        }
+    });
+
+    const doublingStream = new TransformStream({
+        transform(chunk, controller) {
+            controller.enqueue(chunk * 2);
+        }
+    });
+
+    // 通过管道连接流
+    const pipedStream = integerStream.pipeThrough(doublingStream);
+    // 从连接流的输出获得读取器
+    const pipedStreamDefaultReader = pipedStream.getReader();
+
+    // 消费者
+    (async function () {
+        while (true) {
+            const { done, value } = await pipedStreamDefaultReader.read();
+            if (done) {
+                break;
+            } else {
+                console.log(value);
+            }
+        }
+    })();
+
+    // 另外，使用 pipeTo()方法也可以将 ReadableStream 连接到 WritableStream。整个过程与使用 pipeThrough()类似：
+
+    // async function* ints() {
+    //     // 每 1000 毫秒生成一个递增的整数
+    //     for (let i = 0; i < 5; ++i) {
+    //         yield await new Promise((resolve) => setTimeout(resolve, 1000, i));
+    //     }
+    // }
+    // const integerStream = new ReadableStream({
+    //     async start(controller) {
+    //         for await (let chunk of ints()) {
+    //             controller.enqueue(chunk);
+    //         }
+    //         controller.close();
+    //     }
+    // });
+    // const writableStream = new WritableStream({
+    //     write(value) {
+    //         console.log(value);
+    //     }
+    // });
+    // const pipedStream = integerStream.pipeTo(writableStream); // 0 1 2 3 4
+
+    // 注意，这里的管道连接操作隐式从 ReadableStream 获得了一个读取器，并把产生的值填充到WritableStream。
+
+    //#endregion */
+
+    function p(ok, bad) {
+        ok(1);
+        // bad(2);
+    }
+
+    Promise.myAll = async function (agm) {
+        const resArr = [];
+        await agm.forEach(async (o) => {
+            try {
+                resArr.push(await o)
+            } catch (error) {
+                throw error
+            }
+
+        });
+
+        if(!resArr.length) return;
+        return new Promise(resolve => resolve(resArr))
+    }
+
+    const p1 = new Promise(p);
+    const p2 = new Promise(p);
+    const p3 = new Promise(p);
+
+    const pAll = Promise.myAll([p1, p2, p3])
+    const PAll = Promise.all([p1, p2, p3])
+
+    pAll.then(res => console.log(res))
+    PAll.then(res => console.log(res))
+    console.log(pAll);
+    console.log(PAll);
+
+</script>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <style>
+        html {
+            --redCoor: #c00000;
+        }
+
+        div {
+            color: var(--redCoor);
+        }
+    </style> -->
+</head>
+
+<!-- <body>
+    <div>
+        haha
+    </div>
+</body> -->
+<!-- <body>
+    <div>
+        <span>0</span>
+        <button id="sum">点击加一</button>
+    </div>
+    <button id="go">按钮跳转</button>
+    <script>
+        const state = { 'page_id': 1, 'user_id': 5 }
+        const title = ''
+        const url = '2.html'
+        document.querySelector('#go').onclick = () => {  
+            history.pushState(state, title, url)
+        }
+
+        document.querySelector('#sum').onclick = () => {
+            var a = document.querySelector('div > span').innerText
+            a++;
+            document.querySelector('div > span').innerText = a;
+        }
+    </script>
+</body> -->
+
+<!-- <body>
+    <div>测试一下</div>
+    <script>
+        window.onhashchange = function(event){
+            let hash = location.hash.slice(1);
+            console.log(hash);
+            document.body.style.color = hash;
+        }
+    </script>
+</body> -->
+
+<!-- <script>
+    var a = {}
+    a.fn = function() {
+        console.log(1);
+    }
+    
+    console.log(a.hasOwnProperty('fn'));
+</script> -->
+
+<body>
+    <button>按钮</button>
+</body>
+<script>
+    var arr = [
+        {
+            id: 1,
+            name: 'zs',
+            money: 100
+        }, {
+            id: 2,
+            name: 'ls',
+            money: 210
+        }, {
+            id: 3,
+            name: 'ww',
+            money: 120
+        }]
+
+    // var a = arr.reduce((a, b) => {
+    //     console.log('a', a);
+    //     console.log('b', b.money);
+    //     return a + b.money  
+    // }, 0)
+
+    // console.log('result', a);
+
+    // var result = 0
+    // arr.forEach(v => {
+    //     result += v.money
+    // });
+
+    // console.log(result);
+</script>
+
+<script>
+    var a = 'zs'
+    var arr = [a, 'ls', 'ww'] 
+
+
+    var obj = {
+        arr: [1, 2, 3]
+    }
+    // Object.defineProperty(arr, 0,{
+    //     get() {
+    //         console.log('get了');
+    //         return a
+    //     },
+    //     set(val) {
+    //         console.log('set了');
+    //         a = val
+    //         return a
+    //     }
+    // })
+    // obj = {
+    //     a: 1
+    // }
+
+    // Object.defineProperty(obj, 'a', {
+    //     get() {
+    //         console.log(1);
+    //         return 1
+    //     }
+    // })
+
+</script>
+
+</html>

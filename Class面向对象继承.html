@@ -1,0 +1,24 @@
+<script>
+    /* 太简单了不想写了 */
+    class Father {
+        constructor(name) {
+            let a = 10;
+            this.name = name;
+        }
+        sing() {
+            console.log('this', this);
+        }
+    }
+    
+    class Child {
+        constructor(name) {
+            this.name = name
+        }   
+    }
+
+    let father = new Father('爹')
+    let child = new Child('儿子')
+
+    console.dir(father.sing());
+    console.log(child);
+</script>

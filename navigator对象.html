@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 返回数组，包含 ispresenting 属性为 true 的 VRDisplay 实例
+        console.log(navigator.activeVrDisplays);
+
+        //即使在非 Mozilla 浏览器中也会返回"Mozilla"
+        console.log(navigator.appCodeName);
+
+        // 浏览器全名
+        console.log(navigator.appName);
+
+        // 浏览器版本。通常与实际的浏览器版本不一致
+        console.log(navigator.appVersion);
+
+        // 返回暴露 Battery Status API 的 BatteryManager 对象
+        console.log(navigator.battery);
+
+        // 浏览器的构建编号
+        console.log(navigator.buildId);
+
+        // 返回暴露 Network Information API 的 NetworkInformation 对象
+        console.log(navigator.connection);
+
+        // 返回布尔值，表示是否启用了 cookie 
+        console.log(navigator.cookieEnabled);
+
+        // 返回暴露 Credentials Management API 的 CredentialsContainer 对象
+        console.log(navigator.credentials);
+
+        // 返回单位为 GB 的设备内存容量（这里应该是RAM）
+        console.log(navigator.deviceMemory);
+
+        // 返回用户的“不跟踪”（do-not-track）设置
+        console.log(navigator.doNotTrack);
+
+        // 返回暴露 Geolocation API 的 Geolocation 对象（基本上可以说毫无卵用）
+        console.log(navigator.geolocation);
+
+        // var options = {
+        //     enableHighAccuracy: true,
+        //     timeout: 5000,
+        //     maximumAge: 0
+        // };
+
+        // function success(pos) {
+        //     console.log(pos);
+        //     var crd = pos.coords;
+
+        //     console.log('Your current position is:');
+        //     console.log('Latitude : ' + crd.latitude);
+        //     console.log('Longitude: ' + crd.longitude);
+        //     console.log('More or less ' + crd.accuracy + ' meters.');
+        // };
+
+        // function error(err) {
+        //     console.warn('ERROR(' + err.code + '): ' + err.message);
+        // };
+
+        // navigator.geolocation.getCurrentPosition(success, error, options);
+
+        // 返回数组，包含可用的每个 VRDisplay 实例（好像还没浏览器支持）
+        // console.log(navigator.getVRDisplays);
+
+        // 返回与可用媒体设备硬件关联的流
+        // 已废弃: 该特性已经从 Web 标准中删除，虽然一些浏览器目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性。
+        // 新代码应当使用 Navigator.mediaDevices.getUserMedia() 替代.
+        // console.log(navigator.getUserMedia);
+
+        // 返回设备的处理器核心数量
+        console.log(navigator.hardwareConcurrency);
+
+        // 返回布尔值，表示浏览器是否启用了 Java（好像也没什么卵用）
+        console.log(navigator.javaEnabled());
+
+        // 返回浏览器的主语言
+        console.log(navigator.language);
+
+        // 返回浏览器偏好的语言数组
+        console.log(navigator.languages);
+
+        // 返回暴露 Web Locks API 的 LockManager 对象
+        console.log(navigator.locks);
+
+        // 返回暴露 Media Capabilities API 的 MediaCapabilities 对象
+        console.log(navigator.mediaCapabilities);
+
+        // 返回可用的媒体设备
+        console.log(navigator.mediaDevices);
+
+        // 返回设备触摸屏支持的最大触点数
+        console.log(navigator.maxTouchPoints);
+
+        // 返回浏览器中注册的 MIME 类型数组
+        // 不被支持了！
+        console.log(navigator.mimeTypes);
+
+        // 返回布尔值，表示浏览器是否联网
+        console.log(navigator.onLine);
+
+        // 返回浏览器运行设备的操作系统和（或）CPU
+        console.log(navigator.oscpu);
+
+        // 返回暴露 Permissions API 的 Permissions 对象
+        // Experimental: 这是一个实验中的功能
+        // 此功能某些浏览器尚在开发中，请参考浏览器兼容性表格以得到在不同浏览器中适合使用的前缀。由于该功能对应的标准文档可能被重新修订，所以在未来版本的浏览器中该功能的语法和行为可能随之改变。
+        console.log(navigator.permissions);
+
+        // 返回浏览器运行的系统平台
+        console.log(navigator.platform);
+
+        // 返回浏览器安装的插件数组。在 IE 中，这个数组包含页面中所有<embed>元素
+        // 荒废的：不再建议使用此功能。虽然某些浏览器可能仍然支持它，但它可能已经从相关的Web标准中删除，可能正在被删除，或者可能只是为了兼容目的而保留。避免使用它，并尽可能更新现有代码;请参阅此页面底部的兼容性表，以指导您的决定。请注意，此功能可能随时停止工作。
+        console.log(navigator.plugins);
+
+        // 返回产品名称（通常是"Gecko"）
+        console.log(navigator.product);
+
+        // 返回产品的额外信息（通常是 Gecko 的版本）
+        console.log(navigator.product);
+
+        // 将一个网站注册为特定协议的处理程序
+        console.log(navigator.registerProtocolHandler);
+
+        // 返回一个期约，解决为 MediaKeySystemAccess 对象(不知道有什么作用)
+        console.log(navigator.requestMediaKeySystemAccess);
+
+        // 异步传输一些小数据
+        console.log(navigator.sendBeacon);
+
+        // 返回用来与 ServiceWorker 实例交互的 ServiceWorkerContainer
+        // 作为一个比较新的技术，大家可以把 Service Worker 理解为一个介于客户端和服务器之间的一个代理服务器。在 Service Worker 中我们可以做很多事情，比如拦截客户端的请求、向客户端发送消息、向服务器发起请求等等，其中最重要的作用之一就是离线资源缓存。
+        console.log(navigator.serviceWorker);
+
+        // 返回当前平台的原生共享机制
+        // Experimental: 这是一个实验中的功能
+        // 此功能某些浏览器尚在开发中，请参考浏览器兼容性表格以得到在不同浏览器中适合使用的前缀。由于该功能对应的标准文档可能被重新修订，所以在未来版本的浏览器中该功能的语法和行为可能随之改变。
+        console.log(navigator.share({
+            title: 'test',
+            text: 'Hello World',
+            url: 'https://developer.mozilla.org',
+        })) // 分享MDN的URL;
+
+        // 返回暴露 Storage API 的 StorageManager 对象
+        console.log(navigator.storage);
+
+        // 返回浏览器的用户代理字符串
+        console.log(navigator.userAgent);
+
+        // 返回浏览器的厂商名称
+        console.log(navigator.vendor);
+
+        // 返回浏览器厂商的更多信息
+        console.log(navigator.vendorSub);
+
+        // 触发设备振动
+        console.log(navigator.vibrate);
+
+        // 返回浏览器当前是否被自动化程序控制
+        console.log(navigator.webdriver);
+    </script>
+</body>
+
+</html>

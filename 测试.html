@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        var obj = {
+            state: () => {
+                return {
+                    cart: []
+                }
+            }
+        }
+
+        obj.state().cart
+
+        // obj.state().cart
+
+        // // var obj = {
+        // //     state: {
+        // //         cart: []
+        // //     }
+        // // }
+
+        // var result = obj.state()
+
+        // Object.defineProperty(obj, 'state', {
+        //     get() {
+        //         return result
+        //     }
+        // })
+
+        // obj.state.cart = [1, 2, 3]
+
+        // console.log(obj.state.cart);
+
+
+        // state: {
+        //     a: 'xxx'
+        // }
+
+        // state: () => ({
+        //     a: 'xxx',
+        // })
+
+
+
+        // obj.state.cart = [1, 2, 3]
+
+        // console.log(obj.state.cart);
+        // var a = obj.state()
+        // obj.state().cart = [1, 2, 3]
+        // a.cart = [1, 2, ,3]
+        // console.log(obj.state().cart);
+    </script> -->
+
+    <!-- <script>
+        console.log(...[]);
+        console.log({...{}});
+
+        var blq = {}.xxx
+
+        console.log(...{});
+        
+    </script> -->
+
+    <!-- <script>
+        var obj = {
+            2: 3,
+            3: 4,
+            length: 2,
+            splice: Array.prototype.splice,
+            push: Array.prototype.push
+        }
+
+        console.log(obj);
+
+    </script> -->
+
+    <!-- <script>
+        // 自调用函数有函数提升, 但是一样不会执行里面的代码
+        var a = 10;
+        (function () {
+            console.log(a);
+            a = 5;
+            console.log(window.a);
+            var a = 20;
+            console.log(a)
+        })()
+    </script> -->
+
+    <!-- <script>
+        // console.log(a);
+        // (function () {
+        //     a = 5;
+        // })()
+        
+        console.log(a);
+        var a = 10;
+    </script> -->
+
+    <!-- <script>
+        var a = 10;
+        (function () {
+            var a = 3;
+            a = 50;
+            console.log(a);
+        })()
+    </script> -->
+
+    <!-- <script>
+        // 这一题牛逼
+        var b = 10;
+        (function b() {
+            b = 20;
+            console.log(b)
+        })()
+        console.log(b)
+    </script> -->
+
+    <!-- <script>
+        function fn() {
+            var a = 1, b = 2, c = 3;
+
+            // 这样除了a全部添加到全局去了
+            var aa = bb = cc = 1;
+        }
+
+        fn()
+        console.dir(window);
+    </script> -->
+</body>
+
+</html>

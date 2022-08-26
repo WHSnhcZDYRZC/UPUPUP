@@ -1,0 +1,506 @@
+<script>
+    // function fn() {
+    //     console.log('hahaha');
+    // }
+
+    // fn.a = 1;
+
+    // let fn1 = new Function()
+
+    // // let fn2 = function() {
+    // //     console.log(3);
+    // // }
+
+    // console.log(fn1);
+    // console.dir(fn)
+
+    /**
+    * 手写一个深克隆函数
+    * */
+    // function deepClone(obj) {
+    //     if (obj === null) return null
+    //     if (typeof obj !== 'object') return obj
+    //     // 正则表达式
+    //     if (obj instanceof RegExp) return new RegExp(obj)
+    //     // 日期对象
+    //     if (obj instanceof Date) return new Date(obj)
+    //     // 函数
+    //     if (obj instanceof Function) return new Function(obj)
+    //     // 数组
+    //     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+    //     // 普通数据类型的处理
+    //     const newObj = {}
+    //     for (let i in obj) {
+    //         if (obj.hasOwnProperty(i)) {
+    //             newObj[i] = deepClone(obj[i])
+    //         }
+    //     }
+    //     return newObj
+    // }
+
+    // let obj = {
+    //     f1: function (a) {
+    //         console.log(a)
+    //     },
+    //     d2: new Date(),
+    //     r3: /\d+/g,
+    //     n4: null,
+    //     c5: {
+    //         a: 23
+    //     },
+    //     d6: [1, 3, 4, { 5: 5 }]
+    // }
+
+    // const obj2 = deepClone(obj)
+
+    // obj2.f1.age = 18
+    // obj2.d6.age = 18
+
+    // console.log(obj);
+</script>
+
+<!-- <script>
+    // 继承 es5
+        // Object.create = null
+        if(!Object.create) {
+            Object.create = function(_prototype) {
+                function fn() {}
+                fn.prototype = _prototype
+                return fn.prototype
+            }
+        }
+
+    function car(fdj, m, c) {
+        this.fdj = fdj;
+        this.m = m;
+        this.c = c
+        this.arr = ['aaa']
+    }
+    car.prototype.skill = () => {
+        console.log('我是car上的skill!');
+    }
+    car.prototype.sex = function(sex) {
+        console.log(sex);
+    }
+
+    function bm(fdj, m, c) {
+        car.call(this,fdj, m, c)
+    }
+    // bm.arr.push(bbb)
+    bm.prototype = Object.create(car.prototype)
+    // console.dir(bm)
+    // console.dir(car)
+
+    /* new 创造出来的会保留原构造函数的属性 但是Object.creat创造出来的不会 */
+    // bm.prototype = new car()
+    // bm.prototype.constructor =  bm
+
+    var BWM = new bm('牛逼发动机', '牛逼车门', '牛逼车窗')
+    console.log(BWM);
+    // BWM.skill()
+    // BWM.sex('男')
+
+</script> -->
+
+
+<!-- <script>
+    // 继承es6
+    class Father {
+        constructor(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+
+        sing() {
+            console.log('青藏高原');
+        }
+    }
+
+    class Son extends Father {
+        constructor(name, age, sex) {
+            super(name, age, sex)
+        }
+    }
+
+    const son = new Son('zs', 18, '男')
+
+    console.log(son);
+</script> -->
+
+<!-- <script>
+    function Person1() {
+        this.name = 'william'
+    }
+
+    function Person2() {
+        this.name = 'william'
+        return (console.log('trigger')) // undefined
+    }
+
+    function Person3() {
+        this.name = 'william'
+        return []
+    }
+
+    var p1 = new Person1() // 实例对象 {name: 'william'}
+    var p2 = new Person2() // 还是实例对象，虽然 return 触发了，也打印了 trigger
+    var p3 = new Person3() // []
+
+    console.log(p1);
+    console.log(p2);
+    console.log(p3);
+</script> -->
+
+<!-- <script>
+    // function myNew(fn, ...age) {
+    //     let obj = {}
+    //     function newFn() {}
+    //     newFn.prototype = fn.prototype
+    //     obj.__proto__ = newFn.prototype
+    //     return fn.apply(obj, age)
+    // }
+</script> -->
+
+<!-- <script>
+    var obj = {
+        name: 'zs',
+        age: 15
+    }
+
+    function fn() {
+        console.log(this.age);
+    }
+
+    fn.bind(obj)()
+</script> -->
+
+<script>
+    var obj = {
+        name: 'zs',
+        age: 15
+    }
+
+    function fn(a, b) {
+        console.log(this.age, a, b);
+    }
+
+    // 实现call, apply 方法于一体
+    Function.prototype.myCall = function (context, ...args) {
+        var func = this;
+        fn = Symbol('fn');
+        context[fn] = func; 
+        var res;
+        if (!args) {
+            res = context[fn]()
+        } else if (Object.prototype.toString.call(args[0]) === '[object Array]') {
+            res = context[fn](...args[0]);
+        } else {
+            res = context[fn](...args);
+        }
+        delete context[fn]; 
+        return res;
+    }
+
+    // fn.myCall(obj, '123', '321')
+    // fn.myCall(obj, ['a', 'b'])
+</script>
+
+<!-- <script>
+    // 实现bind方法
+    var obj = {
+        name: 'zs',
+        age: 15
+    }
+
+    function fn(a, b) {
+        console.log(this.age, a, b);
+    }
+
+    Function.prototype.myBind = function (obj, ...age) {
+        var fn =  obj['__fn'] = this
+        delete  obj['__fn']
+        return function __fn() {
+            fn.call(obj, ...age)
+        }
+    }
+    var a = fn.myBind(obj, 'zs', 'ls')
+    a()
+</script> -->
+
+<!-- <script>
+    Function.prototype.mycall = function(obj, ...age) {
+        if(!obj) return;
+        let fn = Symbol('fn');
+        obj[fn] = this;
+        let result = obj[fn](...age) 
+        return result
+    }
+
+    let obj = {
+        name: 'ww'
+    }
+
+    function fn() {
+        console.log(this.name);
+    }
+
+    fn.mycall(obj)
+</script> -->
+
+<!-- <script>
+    var obj = {
+        name: 'zs',
+        age: 15
+    }
+
+    function fn(a, b, c) {
+        console.log(this.age, a, b, c);
+    }
+
+    fn.apply(obj, ['zs', 'ls'])
+
+</script> -->
+
+<!-- <script>
+    function fn(...a) {
+        console.log(...a);
+    }
+
+    // fn('zs', 'ls', 'ww')
+    fn([1, 2, 3])
+</script> -->
+
+<!-- <script>
+    // 可以通过this，拿到函数体
+    Function.prototype.aaa = function() {
+        console.log(this);
+    }
+
+    function fn() {
+
+    }
+
+    fn.aaa()
+</script> -->
+
+<!-- <script>
+    // 会将传入的参数当做js代码执行
+    console.log(eval('var a = 10; window.a'));
+</script> -->
+
+<!-- <script>
+    var obj = {
+        name: 'zs',
+        age: 15
+    }
+
+    obj.__fn = function() {
+        console.log('a');
+    }
+
+    delete obj.__fn
+    
+    console.log(obj);
+</script> -->
+
+<!-- <script>
+    function news(func) {
+        var target = {};//生成新对象
+        target.__proto__ = func.prototype;//实例的__proto__指向原型，构造函数的prototype也指向原型（链接到原型）
+        var res = func.call(target);//把函数的this绑定在了新生成的对象中
+        if (typeof (res) == "object" || typeof (res) == "function") {
+            return res;//如果传入的函数(构造函数)有自己的返回值，则返回该值
+        }
+        return target;//如果如果传入的函数(构造函数)没有自己的返回值，则返回新对象
+    }
+
+    function Fn() {
+        this.name = 'hh'
+    }
+
+    var fn = news(Fn)
+    console.log(fn);
+</script> -->
+
+<!-- <script>
+    function fn() {
+        console.log(1);
+    }
+
+    fn.call()
+</script> -->
+
+<!-- <script>
+    function myNew(fn) {
+        let obj = {}
+        obj.__proto__ = fn.prototype
+        var result = fn.call(obj)
+
+        if(typeof result === 'object' || typeof result === 'function') {
+            return result
+        }
+
+        // if(Object.prototype.toString.call(result) === '[object Object]' || Object.prototype.toString.call(result) === '[object Array]' || Object.prototype.toString.call(result) === '[object Function]') {
+        //     return result
+        // }
+
+        return obj
+    }
+
+    function Fn() {
+        this.name = 'zs';
+    }
+
+    var fn = myNew(Fn)
+    console.log(fn);
+</script> -->
+
+<!-- <script>
+    // 函数深拷贝
+    function copy(obj) {
+        let newObj = {}
+        Object.keys(obj).forEach(v => {
+            if (Object.prototype.toString.call(obj[v]) === '[object Object]') {
+                var res = copy(obj[v])
+                if(res) {
+                    newObj[v] = res
+                }
+            } else if(Object.prototype.toString.call(obj[v]) === '[object Array]'){
+                var arr = copy(obj[v])
+                if(arr) {
+                    newObj[v] = arr
+                }
+            }  else if(Object.prototype.toString.call(obj[v]) === '[object Function]'){
+                    newObj[v] = new Function('return '+ obj[v] +'')()
+            } else {
+                newObj[v] = obj[v]
+            }
+        })
+         return newObj
+    }
+
+    var obj = {
+        name: {
+            aaa: {
+                bbb: 456
+            }
+        },
+        arr: ['zs', 'ls', 'ww'],
+        str: 'hehe',
+        fn: function() {
+            console.log('123');
+        }
+    }
+
+    // var obj2 = obj
+
+    // obj2.name = 'ls'
+    // console.log('obj2', obj2);
+    // console.log('obj', obj);
+
+    let newObj = copy(obj)
+    newObj.fn.gaga = 'zs'
+    
+    console.dir(newObj.fn);
+    console.dir(obj.fn);
+    // console.log(obj);
+</script> -->
+
+<!-- <script>
+     /* 
+     let obj = {
+         // name: 'zs'
+     }
+
+     name = 'zs'
+
+     Object.defineProperty(obj, 'name', {
+         get() {
+             return name
+         },
+         set(v) {
+             console.log('我被设置了', v);
+             name = v;
+         }
+     })
+
+     obj.name = 'ls'
+     console.log(obj); 
+     */
+
+    let arr = ['zs', 'ls', 'ww']
+    var a = 'zs'
+
+    Object.defineProperty(arr, 0, {
+        get() {
+            return a
+        },
+        set(v) {
+            console.log('我可以被监听到', v);
+            a = v
+        }
+    })
+
+    arr[0] = 'hah'
+    console.log(arr);
+</script> -->
+
+<!-- <script>
+    var obj = {
+        a: 'zs'
+    }
+
+    Object.defineProperty(obj, 'a', {
+        enumerable: true    
+    })
+
+    console.log(obj);
+    for(var item in obj) {
+        console.log(item);
+    }
+</script> -->
+
+<!-- <script>
+    var obj = {
+        name: 'zs',
+        reg: /^12$/,
+        o: {
+            name: 'ww',
+            o: {
+                name: 'zl'
+            }
+        }
+    }
+
+    var obj3 = JSON.parse(JSON.stringify(obj))
+
+    var obj2 = obj
+    obj2.name = 'ls'
+
+    function copy(obj) {
+        var newObj = {}
+        Object.keys(obj).forEach(v => {
+            if (Object.prototype.toString.call(obj[v]) === '[object RegExp]') {
+                newObj[v] = new RegExp(obj[v])
+            } else if(Object.prototype.toString.call(obj[v]) === '[object Object]'){
+                var retObj = copy(obj[v])
+                if (retObj) {
+                    newObj[v] = retObj
+                }
+            } else {
+                newObj[v] = obj[v]
+            }
+        })
+        return newObj
+    }
+
+
+    var obj4 = copy(obj)
+    console.log('obj4', obj4);
+
+    obj4.o.name = '123'
+
+    console.log('obj', obj);
+
+</script> -->

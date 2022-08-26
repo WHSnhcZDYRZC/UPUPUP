@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="foo">foo</div>
+    <div id="bar">bar</div>
+    <template>template</template>
+    <script>
+
+        // 创建一个元素作为影子宿主
+        document.body.innerHTML = ` 
+<div></div> 
+`;
+        // 添加影子 DOM 并向其中插入 HTML 
+        document.querySelector('div')
+            .attachShadow({ mode: 'open' })
+            .innerHTML = ` 
+<button onclick="console.log('Handled inside:', event.target)">Foo</button> 
+`;
+
+        // const foo = document.querySelector('#foo');
+        // const fooShadow = foo.attachShadow({ mode: 'open' })
+        // fooShadow.innerHTML = `<slot></slot>`
+
+        // setTimeout(() => foo.innerText = '',2000)
+
+        // const renderedText = htmlElement.innerText;
+
+        // const foo = document.querySelector('#foo');
+        // const bar = document.querySelector('#bar');
+
+        // const fooOpenShadowDom = foo.attachShadow({
+        //     mode: 'open'
+        // });
+
+        // const barClosedShadowDom = bar.attachShadow({
+        //     mode: 'closed'
+        // });
+
+        // console.log(fooOpenShadowDom, barClosedShadowDom); // #shadow-root (open)  #shadow-root (closed)
+        // console.log(foo.shadowRoot, bar.shadowRoot); // #shadow-root (open)  null
+
+        // for (let color of ['red', 'green', 'blue']) {
+        //     const div = document.createElement('div');
+        //     const shadowDOM = div.attachShadow({ mode: 'closed' });
+        //     document.body.appendChild(div);
+        //     shadowDOM.innerHTML = `
+        //     <p>Make me ${color}</p>
+        //     <style>
+        //     p {
+        //     color: ${color};
+        //     }
+        //     </style>
+        //     `;
+        // }
+
+    </script>
+</body>
+
+</html>
